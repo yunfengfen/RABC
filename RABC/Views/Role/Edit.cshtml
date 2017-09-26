@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_LayoutForm.cshtml";
+}
+
+<form class="bootstrap-frm" action="@Url.Action("Save")">
+    <h1>角色管理 - 编辑</h1>
+    <label>
+        <span>ID：</span>
+        <input type="text" name="id" value="@Model.Id" readonly="readonly" />
+    </label>
+    <label>
+        <span>角色名称</span>
+        <input type="text" name="RoleName" value="@Model.RoleName" placeholder="请输入角色名称" />
+    </label>
+   
+
+    <label>
+        <span>&nbsp;</span>
+        <input type="button" class="button" value="编辑" />
+    </label>
+</form>

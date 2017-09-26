@@ -1,0 +1,26 @@
+﻿@model RABC.Models.Module
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/_LayoutForm.cshtml";
+}
+
+<form class="bootstrap-frm" action="@Url.Action("Save")">
+    <h1>模块管理 - 编辑</h1>
+    <label>
+        <span>ID：</span>
+        <input type="text" name="id" value="@Model.Id" readonly="readonly" />
+    </label>
+    <label>
+        <span>模块名称</span>
+        <input type="text" name="ModuleName"  value="@Model.ModuleName" placeholder="请输入模块名称" />
+    </label>
+    <label>
+        <span>控制器名称</span>
+        <input type="text" name="ControllerName" value="@Model.ControllerName" placeholder="请输入控制器名称" />
+    </label>
+   
+    <label>
+        <span>&nbsp;</span>
+        <input type="button" class="button" value="编辑" />
+    </label>
+</form>

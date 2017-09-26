@@ -1,0 +1,88 @@
+﻿@model IEnumerable<RABC.Models.Role>
+@{
+    ViewBag.Title = "角色管理";
+    Layout = "~/Views/_LayoutPage.cshtml";
+}
+
+@Html.ActionLink("新增", "Create", null, new { id = "create" })
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>名称</th>
+      
+        <th>操作</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.RoleName</td>
+            <td style="width: 100px;">
+                @Html.ActionLink("编辑", "Edit", new { id = item.Id }, new { @class = "edit" })
+                @Html.ActionLink("删除", "Delete", new { id = item.Id }, new { @class = "delete" })
+            </td>
+        </tr>
+    }
+   
+
+
+</table>
+@section Script
+{
+    <script>
+        $(function () {
+            $("#create").click(function (event) {
+                layer.open({
+                    type: 2,
+                    title: '@ViewBag.Title',
+                    area: ['500px', '400px'],
+                    shadeClose: true,
+                    shade: false,
+                    content: '@Url.Action("Create")'
+                });
+                event.preventDefault();
+            });
+            $('.edit').click(function (event) {
+                var href = $(this).attr("href")
+                layer.open({
+                    type: 2,
+                    title: '@ViewBag.Title',
+                    shadeClose: true,
+                    shade: false,
+
+                    area: ['500px', '400px'],
+                    content: href
+                })
+                event.preventDefault();
+            });
+            $(".delete").click(function () {
+                var href = $(this).attr("href");
+                layer.msg('确定要删除吗？', {
+                    time: 0,
+                    btn: ['必需这么干', '我点错了！'],
+                    yes: function (index) {
+                        layer.close(index);
+                        layer.msg('后果自负！', {
+                            icon: 6,
+                            btn: ['确定删除', '算了'],
+                            yes: function (index) {
+                                layer.close(index)
+                                $.ajax({
+                                    url: href,
+                                    type: 'post',
+                                    success: function () {
+                                        layer.close(index);
+                                        window.location.reload();
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+                event.preventDefault();
+            })
+        })
+    </script>
+}
+

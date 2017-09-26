@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/form.css" rel="stylesheet" />
+    <script src="~/JS/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    <script>
+        $(".button").click(function () {
+            $.ajax({
+                url: $("form").attr("action"),
+                type: 'post',
+                data: $("form").serialize(),
+                success: function (res) {
+                    if (res.code === 200) {
+                        parent.location.reload();
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                    }
+                    else {
+                        alert("保存失败")
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
+
